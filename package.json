@@ -1,0 +1,30 @@
+{
+  "name": "lib-franfinance",
+  "version": "1.0.0",
+  "description": "Franfinance library",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -x \"npm run build\"",
+    "build": "npm run remove::dist && npm run build::sass && npm run minify::sass && npm run build::move && npm run build::js && npm run minify::js",
+    "build::sass": "node-sass --include-path scss scss/main.scss dist/main.css",
+    "build::js": "browserify js/** -o dist/main.js && babel dist/main.js -o dist/main.js",
+    "build::move": "cp -r assets dist/.",
+    "minify::sass": "uglifycss --ugly-comments dist/main.css --output dist/main.min.css",
+    "minify::js": "uglifyjs dist/main.js -o dist/main.min.js -c -m",
+    "remove::dist": "rm -r dist/assets || true"
+  },
+  "author": "Use Design Agency (www.use-design.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-imports": "^1.5.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "browserify": "^16.2.2",
+    "node-sass": "^4.9.0",
+    "nodemon": "^1.17.4",
+    "uglify-js": "^3.3.25",
+    "uglifycss": "0.0.29"
+  }
+}
